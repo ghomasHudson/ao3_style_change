@@ -42,3 +42,6 @@ fanfics/
     ...
 ```
 - `to_style_change.py` turns this into a style change task, by randomly creating a structure and filling it with random paragraphs.
+
+# Baseline model (WIP)
+`run_baseline.sh` will train a simple baseline model based on chunking the data.
