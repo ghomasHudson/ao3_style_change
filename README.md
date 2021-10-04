@@ -22,7 +22,7 @@ We use the same data format as the [PAN 21](https://pan.webis.de/clef21/pan21-we
 
 2 python files are provided which were used when scraping the data:
 - `main.py` iterates through a list of character pairings, downloading fics in the following structure:
-    ```
+```
 fanfics/
 ├── pairing1
 │   ├── Username1
@@ -40,5 +40,5 @@ fanfics/
 │   ├── Username4
 │   │    └── ...
     ...
-    ```
+```
 - `to_style_change.py` turns this into a style change task, by randomly creating a structure and filling it with random paragraphs.
