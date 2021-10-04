@@ -1,5 +1,5 @@
-# ao3_style_change
-Style change detection dataset using AO3 fics. Inspired by the [PAN 21: Style Change Detection Task](https://pan.webis.de/clef21/pan21-web/style-change-detection.html).
+# AO3 Style Change
+Style change detection dataset using AO3 fics. Inspired by the [PAN 21: Style Change Detection Task](https://pan.webis.de/clef21/pan21-web/style-change-detection.html), but for much longer documents.
 
 # Data Format
 
