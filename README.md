@@ -16,3 +16,29 @@ We use the same data format as the [PAN 21](https://pan.webis.de/clef21/pan21-we
     "paragraph-authors": [1, 1, 1, 1, 1, 2, 2, 2, 2, ...]
 }
 ```
+
+
+# Gathering new data
+
+2 python files are provided which were used when scraping the data:
+- `main.py` iterates through a list of character pairings, downloading fics in the following structure:
+    ```
+fanfics/
+├── pairing1
+│   ├── Username1
+│   │    ├── 3b6ff2cadcaedf11d5eaaefd1e998d49c493c45f.json
+│   │    ├── 3b6ff2cadcaedf11d5eaaefd1e998d49c493c45f.txt
+│   │    ├── ab35ee7ceb06ee97c94cd042d8874f1eab99bd1a.json
+│   │    ├── ab35ee7ceb06ee97c94cd042d8874f1eab99bd1a.txt
+│   │    └── ...
+│   ├── Username2
+│   │    └── ...
+│   ...
+└── pairing2
+│   ├── Username3
+│   │    └── ...
+│   ├── Username4
+│   │    └── ...
+    ...
+    ```
+- `to_style_change.py` turns this into a style change task, by randomly creating a structure and filling it with random paragraphs.
