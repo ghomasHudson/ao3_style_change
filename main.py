@@ -6,15 +6,6 @@ import os
 import json
 from tqdm import tqdm
 
-# username = "BeautifulFiction"
-# r = requests.get("https://archiveofourown.org/users/" + username)
-# tree = html.fromstring(r.text)
-
-# fandoms = tree.xpath("//div[@id='user-fandoms']//a/@href")
-# fandoms = [f.split("fandom_id=")[1] for f in fandoms]
-# time.sleep(1)
-
-
 def get_num_pages(tree):
     '''Finds out how many pages there are'''
     pages = tree.xpath("//ol[@title='pagination']/li//text()")
@@ -27,26 +18,6 @@ def get_num_pages(tree):
             pass
     return max_page
 
-try:
-    os.mkdir("fanfictions")
-except FileExistsError:
-    pass
-# Get authors writing in fandom
-# fandoms = [
-#     "Marvel",
-#     "Harry Potter - J*d* K*d* Rowling",
-#     "Star Wars - All Media Types",
-#     "Sherlock Holmes *a* Related Fandoms",
-#     "TOLKIEN J*d* R*d* R*d* - Works *a* Related Fandoms"
-# ]
-relationships = [
-    "Sherlock Holmes/John Watson",
-    "Draco Malfoy/Harry Potter",
-    "Steve Rogers/Tony Stark",
-    "Castiel/Dean Winchester"
-]
-
-
 def request_till_200(url):
     '''Make a request till response is 200'''
     while True:
@@ -54,9 +25,19 @@ def request_till_200(url):
         time.sleep(1)
         if r.status_code == 200 or r.status_code == 404:
             return r
-
         time.sleep(10)
 
+try:
+    os.mkdir("fanfictions")
+except FileExistsError:
+    pass
+
+relationships = [
+    "Sherlock Holmes/John Watson",
+    "Draco Malfoy/Harry Potter",
+    "Steve Rogers/Tony Stark",
+    "Castiel/Dean Winchester"
+]
 
 
 for fandom in relationships:
@@ -67,16 +48,6 @@ for fandom in relationships:
     authors = []
     for page in range(1, 25):
         r = request_till_200("https://archiveofourown.org/tags/" + fandom.replace("/", "*s*") + "/works?page=" + str(page))
-
-
-
-        # params = {
-        #     "utf8": "✓",
-        #     "work_search[single_chapter]": 0,
-        #     "work_search[relationship_names]": fandom,
-        #     "work_search[language_id]": "en"
-        # }
-        # r = requests.get("https://archiveofourown.org/works/search", params=params)
 
         tree = html.fromstring(r.text)
         page_authors = tree.xpath("//a[@rel='author']/@href")
@@ -141,14 +112,3 @@ for fandom in relationships:
                     pass
                 open(os.path.join(base_dir, doc_id + ".txt"), 'w').write(text)
                 json.dump(metadata, open(os.path.join(base_dir, doc_id + ".json"), 'w'), indent=2)
-
-
-        # Save works and metadata
-        # Equal number of paragraphs from each fandom
-
-        # Construct dataset
-        # Num authors
-        # Structure
-        # Length
-        # Pick paragraphs
-
