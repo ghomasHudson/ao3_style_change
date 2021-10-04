@@ -4,6 +4,7 @@ import os
 import glob
 import json
 import random
+import numpy as np
 
 def make_changes_list(paragraph_authors):
     '''Turns a list of author idx per para into a list of changes'''
@@ -54,6 +55,8 @@ except:
 #       Build map of fandom/author/paragraphs
 NUM_PER_SET = 100
 random.seed(42)
+np.random.seed(42)
+BUFFER = 1000
 p_map = {}
 for fandom_path in glob.glob("fanfictions/*"):
     fandom = fandom_path.split("/")[-1]
@@ -68,19 +71,22 @@ for fandom_path in glob.glob("fanfictions/*"):
             text = [t.strip() for t in text if len(t) > 5]
             post_map[author] += text
 
-    for i in range(NUM_PER_SET):
+    for dataset_idx in range(NUM_PER_SET):
+        if len(post_map) == 0:
+            raise Exception("No more authors left")
+
         length = random.randint(10000, 30000)
         num_authors = random.randint(2, 3)
+
         num_switches = random.randint(num_authors-1,10)
 
         structure = createMixSenario(num_authors-1, num_switches)
 
         # Work out how long each section should be
-        import numpy as np
         lengths = (np.random.dirichlet(np.ones(num_switches+1),size=1) * length)
         lengths = list(lengths[0])
 
-        # Find length per author
+        # Find length needed per author idx (e.g. author 1 needs 600 words...)
         author_length_map = {}
         for i in range(len(lengths)):
             author_length_map[structure[i]] = int(author_length_map.get(structure[i], 0) + lengths[i])
@@ -88,13 +94,12 @@ for fandom_path in glob.glob("fanfictions/*"):
         # Pick authors
         author_ids = []
         paras_to_pick = {}
-        breakpoint()
         for i in set(structure):
             new_author = None
             available_len = -1
-            while new_author in author_ids or available_len < author_length_map[i+1]:
+            while new_author in author_ids or available_len < author_length_map[i]:
                 new_author = random.sample(list(post_map.keys()), 1)[0]
-                available_len = len(" ".join(post_map[new_author]).split())
+                available_len = len(" ".join(post_map[new_author]).split()) - BUFFER
             author_ids.append(new_author)
 
         for author_id in author_ids:
@@ -106,9 +111,17 @@ for fandom_path in glob.glob("fanfictions/*"):
             section = structure[i]
             section_paras = []
             while len("".join(section_paras).split()) < lengths[i]:
-                section_paras.append(paras_to_pick[author_ids[section-1]].pop())
+                try:
+                    section_paras.append(paras_to_pick[author_ids[section-1]].pop())
+                except Exception as e:
+                    curr_len = len("".join(section_paras).split())
+                    orig_available_len = len(" ".join(post_map[author_ids[section-1]]).split())
+                    print(e)
+                    breakpoint()
             paras.append(section_paras)
 
+        # Cleanup post_map
+        post_map = {k:v for (k,v) in post_map.items() if len(v) > 0}
         # Output
         paragraph_authors = make_paragraph_author_list(paras, structure)
 
@@ -122,9 +135,10 @@ for fandom_path in glob.glob("fanfictions/*"):
             "paragraph-authors": NoIndent(paragraph_authors)
         }
         base_dir = os.path.join("style_change", fandom)
-        with open(os.path.join(base_dir, 'truth-problem-'+str(i+1)+'.json'), 'w') as fp:
+        with open(os.path.join(base_dir, 'truth-problem-'+str(dataset_idx+1)+'.json'), 'w') as fp:
             fp.write(json.dumps(labels, cls=MyEncoder, sort_keys=False, indent=2))
-        with open(os.path.join(base_dir, "problem-"+str(i+1)+".txt"), 'w') as f:
+        with open(os.path.join(base_dir, "problem-"+str(dataset_idx+1)+".txt"), 'w') as f:
             for section in paras:
                 for para in section:
                     f.write(para.strip() + "\n")
+
