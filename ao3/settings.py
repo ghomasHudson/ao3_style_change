@@ -52,7 +52,7 @@ ROBOTSTXT_OBEY = False
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
     # 'ao3.middlewares.ProxyMiddleware': 543,
-    'ao3.middlewares.TooManyRequestsRetryMiddleware': 543,
+    # 'ao3.middlewares.TooManyRequestsRetryMiddleware': 543,
 }
 
 # Enable or disable extensions
