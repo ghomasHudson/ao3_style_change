@@ -1,4 +1,4 @@
-# AO3 Style Change
+# AO3 Style Change Detection
 Style change detection dataset using AO3 fics. Inspired by the [PAN 21: Style Change Detection Task](https://pan.webis.de/clef21/pan21-web/style-change-detection.html), but for much longer documents.
 
 # Data Format
@@ -42,3 +42,6 @@ fanfics/
     ...
 ```
 - `to_style_change.py` turns this into a style change task, by randomly creating a structure and filling it with random paragraphs.
+
+# Baseline model (WIP)
+`run_baseline.sh` will train a simple baseline model based on chunking the data.
