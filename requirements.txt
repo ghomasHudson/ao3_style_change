@@ -1,3 +1,4 @@
 scrapy
 numpy
 lxml
+itemadapter
