@@ -1,6 +1,15 @@
 # AO3 Style Change Detection
 Style change detection dataset using AO3 fics. Inspired by the [PAN 21: Style Change Detection Task](https://pan.webis.de/clef21/pan21-web/style-change-detection.html), but for much longer documents.
 
+# Dataset construction methodology
+We pick 4 relationships from different popular fandoms on AO3:
+- Sherlock Holmes/John Watson
+- Castiels/Dean Winchester
+- Steve Rodgers/Tony Stark
+- Draco Malfoy/Harry Potter
+
+For each pairing, we find collect stories with no other pairings, and are writen in English. We collate these by author and generate new documents formed by 
+
 # Data Format
 
 We use the same data format as the [PAN 21](https://pan.webis.de/clef21/pan21-web/style-change-detection.html) task, with 2 files for each problem instance, `x`:
@@ -21,7 +30,7 @@ We use the same data format as the [PAN 21](https://pan.webis.de/clef21/pan21-we
 # Gathering new data
 
 2 python files are provided which were used when scraping the data:
-- `main.py` iterates through a list of character pairings, downloading fics in the following structure:
+- `main.py` iterates through the list of character pairings, downloading fics in the following structure:
 ```
 fanfics/
 ├── pairing1
