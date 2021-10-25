@@ -8,7 +8,7 @@ We pick 4 relationships from different popular fandoms on AO3:
 - Steve Rodgers/Tony Stark
 - Draco Malfoy/Harry Potter
 
-For each pairing, we find collect stories with no other pairings, and are writen in English. We collate these by author and generate new documents formed by 
+For each pairing, we find collect stories which include it, and are written in English. We collate these by author and randomly generate documents which contain paragraphs from 1-3 authors.
 
 # Data Format
 
