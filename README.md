@@ -1,6 +1,8 @@
 # AO3 Style Change Detection
 Style change detection dataset using AO3 fics. Inspired by the [PAN 21: Style Change Detection Task](https://pan.webis.de/clef21/pan21-web/style-change-detection.html), but for much longer documents.
 
+> Note: Due to the nature of the fanfiction source, much of the text will be NSFW. 
+
 # Dataset construction methodology
 We pick 4 relationships from different popular fandoms on AO3:
 - Sherlock Holmes/John Watson
