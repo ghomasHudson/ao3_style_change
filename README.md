@@ -10,7 +10,7 @@ We pick 4 relationships from different popular fandoms on AO3:
 - Steve Rodgers/Tony Stark
 - Draco Malfoy/Harry Potter (used as the test set)
 
-For each pairing, we find collect stories which include it, and are written in English. We collate these by author and randomly generate documents which contain paragraphs from 1-3 authors.
+For each pairing, we find collect stories which include it, and are written in English. We collate these by author and randomly generate documents which contain paragraphs from 1-4 authors.
 
 # Quickstart
 To quickly use this dataset in your code use the Huggingface Datasets loader:
