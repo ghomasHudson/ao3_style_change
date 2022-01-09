@@ -8,7 +8,7 @@ We pick 4 relationships from different popular fandoms on AO3:
 - Sherlock Holmes/John Watson
 - Castiels/Dean Winchester
 - Steve Rodgers/Tony Stark
-- Draco Malfoy/Harry Potter
+- Draco Malfoy/Harry Potter (used as the test set)
 
 For each pairing, we find collect stories which include it, and are written in English. We collate these by author and randomly generate documents which contain paragraphs from 1-3 authors.
 
@@ -17,7 +17,7 @@ To quickly use this dataset in your code use the Huggingface Datasets loader:
 ```python
 import datasets
 ds = datasets.load_dataset("ghomasHudson/ao3_style_change")
-print(ds["train"][0]
+print(ds["train"][0])
 >> {"site": "Castiel/Dean Winchester", "authors": 4, "structure": ["Author1", "Author2", ...], "multi-author": 1, "changes": [0,0,...]...}
 ```
 
