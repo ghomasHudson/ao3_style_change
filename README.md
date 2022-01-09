@@ -18,7 +18,7 @@ To quickly use this dataset in your code use the Huggingface Datasets loader:
 import datasets
 ds = datasets.load_dataset("ghomasHudson/ao3_style_change")
 print(ds["train"][0]
->> {"site": Castiel/Dean Winchester", "authors": 4, "structure": ["Author1", "Author2", ...], "multi-author": 1, "changes": [0,0,...]...}
+>> {"site": "Castiel/Dean Winchester", "authors": 4, "structure": ["Author1", "Author2", ...], "multi-author": 1, "changes": [0,0,...]...}
 ```
 
 # Data Format
